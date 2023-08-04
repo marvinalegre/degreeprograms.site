@@ -19,7 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "vite": "vite serve client",
-    "vite:build": "vite build client",
+    "vite:build": "npm-run-all vite:build2 replace",
+    "vite:build2": "vite build client",
+    "replace": "bash replace-localhost.sh",
     "dev": "npm-run-all --parallel start:dev vite"
   },
   "dependencies": {
