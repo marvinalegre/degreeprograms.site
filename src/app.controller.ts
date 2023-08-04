@@ -8,13 +8,15 @@ import { join } from 'path'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
-  // getThemAll(){
-  //   return this.appService.findAll();
-  // }
   serveHome(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'client', 'home.html'))
+    res.sendFile(join(__dirname, '..', 'client', 'index.html'))
+  }
+
+  @Get('api')
+  getThemAll() {
+    return this.appService.findAll();
   }
 }

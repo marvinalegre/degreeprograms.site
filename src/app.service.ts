@@ -21,14 +21,17 @@ export class AppService {
           console.log('No documents found!')
         }
   
+        let list = []
         for await (const doc of cursor) {
-          console.log(doc)
+          list.push(doc)
         }
+
+        return list
       } finally {
         await client.close()
       }
     }
 
-    run().catch(console.log)
+    return run().catch(console.log)
   }
 }
