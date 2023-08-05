@@ -12,7 +12,12 @@ export class AppController {
 
   @Get()
   serveHome(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'client', 'dist', 'index.html'))
+    res.sendFile(join(__dirname, '..', 'dist-client', 'src-client', 'home', 'index.html'))
+  }
+
+  @Get('add')
+  serveAdd(@Res() res: Response) {
+    res.sendFile(join(__dirname, '..', 'dist-client', 'src-client', 'add', 'index.html'))
   }
 
   @Get('api')

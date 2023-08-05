@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-find client/dist/ | while read STR
+find dist-client/ | while read STR
 do
   if test -f $STR
   then

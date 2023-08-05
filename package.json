@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "vite": "vite serve client",
     "vite:build": "npm-run-all vite:build2 replace",
-    "vite:build2": "vite build client",
+    "vite:build2": "vite build",
     "replace": "bash replace-localhost.sh",
     "dev": "npm-run-all --parallel start:dev vite"
   },

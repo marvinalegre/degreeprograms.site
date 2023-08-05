@@ -35,4 +35,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
-client/dist/
+dist-client/
