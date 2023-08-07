@@ -3,6 +3,40 @@ import { MongoClient, ObjectId } from 'mongodb'
 
 @Injectable()
 export class AppService {
+  async search(term: string) {
+    const client = new MongoClient(process.env.MONGO_URI)
+    let result = []
+
+    try {
+      const database = client.db('degree_programs_site')
+      const programs = database.collection('degreePrograms')
+  
+      const query = {
+        searchString: {
+          $regex: new RegExp(term, 'i'),
+        }
+      }
+  
+      console.log(query.searchString)
+  
+      const cursor = programs.find(query)
+  
+      if ((await programs.countDocuments(query)) === 0) {
+        console.log("No documents found!");
+      }
+  
+      for await (const doc of cursor) {
+        console.log('hit')
+        result.push(doc)
+      }
+    } finally {
+      client.close()
+    }
+
+    console.log(result)
+    return result
+  }
+
   parseCsv(str: string): {
     years: number[],
     values: number[]
@@ -65,6 +99,8 @@ export class AppService {
       }
   
       for await (const doc of cursor) {
+        delete doc._id
+        delete doc.searchString
         output.push(doc)
       }
     } finally {

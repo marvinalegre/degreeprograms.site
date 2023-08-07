@@ -25,6 +25,7 @@ export class AppController {
     let graduates = this.appService.parseCsv(body.csv)
     delete body.csv
     body.graduates = graduates
+    body.searchString = body.program + ' ' + body.institution
     let id = await this.appService.create(body)
     res.redirect(`/program/${id}`)
   }
@@ -37,5 +38,10 @@ export class AppController {
   @Get('api/program/:id')
   async getProgramData(@Param() param) {
     return await this.appService.getProgramData(param.id)
+  }
+
+  @Get('api/search/:term')
+  async search(@Param() param) {
+    return await this.appService.search(param.term)
   }
 }
