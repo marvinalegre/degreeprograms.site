@@ -12,7 +12,7 @@ import { join } from 'path'
   imports: [
     ConfigModule.forRoot(),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'dist-client', 'assets'),
+      rootPath: join(__dirname, '..', 'client', 'dist'),
       serveRoot: '/assets',
       renderPath: ' '
     })

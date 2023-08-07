@@ -9,17 +9,12 @@ export class AppController {
 
   @Get()
   serveHome(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'dist-client', 'home.html'))
+    res.sendFile(join(__dirname, '..', 'client', 'views', 'home.html'))
   }
 
   @Get('add')
   serveAdd(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'dist-client', 'add.html'))
-  }
-
-  @Get('api')
-  getThemAll() {
-    return this.appService.findAll();
+    res.sendFile(join(__dirname, '..', 'client', 'views', 'add.html'))
   }
 
   @Post('api/create')
@@ -36,7 +31,7 @@ export class AppController {
 
   @Get('program/:id')
   getProgramPage(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'dist-client', 'program.html'))
+    res.sendFile(join(__dirname, '..', 'client', 'views', 'program.html'))
   }
 
   @Get('api/program/:id')
