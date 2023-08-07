@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 
 @Injectable()
 export class AppService {
@@ -76,5 +76,39 @@ export class AppService {
     }
 
     return await run()
+  }
+
+  async getProgramData(id: string) {
+    const client = new MongoClient(process.env.MONGO_URI)
+    let output = []
+
+    try {
+      const database = client.db('degree_programs_site')
+      const programs = database.collection('degreePrograms')
+  
+      const query = {
+        _id: new ObjectId(id)
+      }
+  
+      const cursor = programs.find(query)
+  
+      if ((await programs.countDocuments(query)) === 0) {
+        console.log("No documents found!");
+      }
+  
+      for await (const doc of cursor) {
+        output.push(doc)
+      }
+    } finally {
+      client.close()
+    }
+
+    if (output[0]) {
+      return output[0]
+    } else {
+      return {
+        message: 'Not found'
+      }
+    }
   }
 }
