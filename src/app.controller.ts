@@ -9,12 +9,12 @@ export class AppController {
 
   @Get()
   serveHome(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'dist-client', 'src-client', 'home', 'index.html'))
+    res.sendFile(join(__dirname, '..', 'dist-client', 'home.html'))
   }
 
   @Get('add')
   serveAdd(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'dist-client', 'src-client', 'add', 'index.html'))
+    res.sendFile(join(__dirname, '..', 'dist-client', 'add.html'))
   }
 
   @Get('api')
@@ -33,6 +33,6 @@ export class AppController {
 
   @Get('program/:id')
   getProgram(@Res() res: Response) {
-    res.sendFile(join(__dirname, '..', 'dist-client', 'src-client', 'program', 'index.html'))
+    res.sendFile(join(__dirname, '..', 'dist-client', 'program.html'))
   }
 }
