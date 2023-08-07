@@ -1,9 +1,10 @@
 #!/usr/bin/bash
 
-find dist-client/ | while read STR
+find $1 | while read STR
 do
   if test -f $STR
   then
 	  sed -i 's/http:\/\/localhost:3000//g' "$STR"
+	  sed -i 's/.html//g' "$STR"
   fi
 done

@@ -6,10 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -18,11 +15,17 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "vite": "vite",
-    "vite:build": "npm-run-all vite:build2 replace",
-    "vite:build2": "vite build",
-    "replace": "bash replace-localhost.sh",
-    "dev": "npm-run-all --parallel start:dev vite"
+    
+    "vite:build": "vite build src-client --emptyOutDir",
+    "fix:routes": "bash fix-routes.sh dist-client",
+    "start:nest": "nest start",
+    "start:vite": "vite serve src-client",
+
+    "build:client": "npm-run-all vite:build fix:routes",
+    "build:server": "nest build",
+
+    "dev:client": "npm-run-all --parallel start:nest start:vite",
+    "dev:server": "nest start --watch"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
