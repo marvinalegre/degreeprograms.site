@@ -12,7 +12,7 @@ document.querySelector('.search-bar').addEventListener('input', (e) => {
 
     for (let hit of searchResult) {
       let anchor = document.createElement('a')
-      anchor.setAttribute('href', '/' + hit._id)
+      anchor.setAttribute('href', '/?compare=' + hit._id)
       anchor.textContent = hit.program
       let p = document.createElement('p')
       p.textContent = hit.institution
