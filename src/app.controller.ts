@@ -1,4 +1,4 @@
-import { Param, Controller, Body, Get, Post, Res } from '@nestjs/common';
+import { Param, Controller, Body, Get, Post, Res, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express'
 import { join } from 'path'
@@ -8,7 +8,8 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
-  serveHome(@Res() res: Response) {
+  serveHome(@Res() res: Response,@Query() query) {
+    console.log(query.compare)
     res.sendFile(join(__dirname, '..', 'client', 'views', 'home.html'))
   }
 
@@ -43,5 +44,10 @@ export class AppController {
   @Get('api/search/:term')
   async search(@Param() param) {
     return await this.appService.search(param.term)
+  }
+
+  @Get('/api/datasets/:set')
+  async getDatasets(@Param() param) {
+    return await this.appService.getDatasets(param.set)
   }
 }

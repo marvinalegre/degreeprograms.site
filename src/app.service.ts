@@ -3,6 +3,40 @@ import { MongoClient, ObjectId } from 'mongodb'
 
 @Injectable()
 export class AppService {
+  async getDatasets(set: string) {
+    let ids = set.split('-vs-')
+    async function run() {
+      let output = []
+      for (let id of ids) {
+        const client = new MongoClient(process.env.MONGO_URI)
+        try {
+          const database = client.db('degree_programs_site')
+          const programs = database.collection('degreePrograms')
+
+          const query = {
+            _id: new ObjectId(id)
+          }
+
+          const cursor = programs.find(query)
+
+          if ((await programs.countDocuments(query)) === 0) {
+            console.log("No documents found!");
+          }
+
+          for await (const doc of cursor) {
+            delete doc._id
+            delete doc.searchString
+            output.push(doc)
+          }
+        } finally {
+          client.close()
+        }
+      }
+      return output
+    }
+    return await run().catch(console.log)
+  }
+
   async search(term: string) {
     const client = new MongoClient(process.env.MONGO_URI)
     let result = []
@@ -10,21 +44,21 @@ export class AppService {
     try {
       const database = client.db('degree_programs_site')
       const programs = database.collection('degreePrograms')
-  
+
       const query = {
         searchString: {
           $regex: new RegExp(term, 'i'),
         }
       }
-  
+
       console.log(query.searchString)
-  
+
       const cursor = programs.find(query)
-  
+
       if ((await programs.countDocuments(query)) === 0) {
         console.log("No documents found!");
       }
-  
+
       for await (const doc of cursor) {
         console.log('hit')
         result.push(doc)
@@ -87,17 +121,17 @@ export class AppService {
     try {
       const database = client.db('degree_programs_site')
       const programs = database.collection('degreePrograms')
-  
+
       const query = {
         _id: new ObjectId(id)
       }
-  
+
       const cursor = programs.find(query)
-  
+
       if ((await programs.countDocuments(query)) === 0) {
         console.log("No documents found!");
       }
-  
+
       for await (const doc of cursor) {
         delete doc._id
         delete doc.searchString

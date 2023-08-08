@@ -4,17 +4,21 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/assets/css/style.css">
-  <script defer src="/assets/js/home.js"></script>
+  <script defer type="module" src="/assets/builds/home.js"></script>
 </head>
 
 <body>
   <h1>degreeprograms.site (demo)</h1>
 
+  <h2>Compare the number of graduates of degree programs over time</h2>
+
   <a href="add">add a program</a><br>
 
-  <input class="search-bar">
+  <input class="search-bar" placeholder="Search...">
 
   <div class="search-results"></div>
+
+  <div style="width: 800px;"><canvas id="chart"></canvas></div>
 </body>
 
 </html>
