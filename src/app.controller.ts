@@ -9,7 +9,6 @@ export class AppController {
 
   @Get()
   serveHome(@Res() res: Response,@Query() query) {
-    console.log(query.compare)
     res.sendFile(join(__dirname, '..', 'client', 'views', 'home.html'))
   }
 

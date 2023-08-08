@@ -40,33 +40,56 @@ if (programsString) {
   async function run() {
     let programs = await fetch(`/api/datasets/${programsString}`)
     programs = await programs.json()
-    let min = programs[0].graduates.years[0]
-    let max = programs[0].graduates.years[0]
+
+    const YEARS = []
     for (let program of programs) {
       for (let year of program.graduates.years) {
-        if (year < min) {
-          min = year
-        }
-
-        if (year > max) {
-          max = year
-        }
+        YEARS.push(year)
       }
     }
+    let min = Math.min.apply(Math, YEARS)
+    let max = Math.max.apply(Math, YEARS)
+
+    // for (let program of programs) {
+    //   for (let year of program.graduates.years) {
+    //     if (year < min) {
+    //       min = year
+    //     }
+
+    //     if (year > max) {
+    //       max = year
+    //     }
+    //   }
+    // }
 
     let labels = []
+    let z = min
     while (labels[labels.length - 1] !== max || labels.length === 0) {
-      labels.push(min)
-      min++
+      labels.push(z)
+      z++
+    }
+
+    function prepValues(fmin, fmax, years, values) {
+      let output = []
+      for (let year = fmin; year <= fmax; year++) {
+        let i = years.indexOf(year)
+        if (i !== -1) {
+          output.push(values[i])
+        } else {
+          output.push(undefined)
+        }
+      }
+      
+      return output
+
     }
 
     let datasets = programs.map(program => {
       return {
         label: program.program + ' ' + program.institution,
-        data: program.graduates.values
+        data: prepValues(min, max, program.graduates.years, program.graduates.values)
       }
     })
-    console.log(datasets) //////////////////
 
     new Chart(
       document.getElementById('chart'),

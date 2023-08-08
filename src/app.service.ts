@@ -51,8 +51,6 @@ export class AppService {
         }
       }
 
-      console.log(query.searchString)
-
       const cursor = programs.find(query)
 
       if ((await programs.countDocuments(query)) === 0) {
@@ -60,14 +58,12 @@ export class AppService {
       }
 
       for await (const doc of cursor) {
-        console.log('hit')
         result.push(doc)
       }
     } finally {
       client.close()
     }
 
-    console.log(result)
     return result
   }
 
