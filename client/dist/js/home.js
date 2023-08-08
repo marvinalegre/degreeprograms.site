@@ -14,7 +14,11 @@ document.querySelector('.search-bar').addEventListener('input', (e) => {
 
     for (let hit of searchResult) {
       let anchor = document.createElement('a')
-      anchor.setAttribute('href', '/?compare=' + hit._id)
+      if (/compare/.test(window.location.href)) {
+        anchor.setAttribute('href', new URL(window.location).search + '-vs-' + hit._id)
+      } else {
+        anchor.setAttribute('href', '?compare=' + hit._id)
+      }
       anchor.textContent = hit.program
       let p = document.createElement('p')
       p.textContent = hit.institution
