@@ -9,10 +9,16 @@
 body {
   width: var(--body-width);
   margin: 0 auto;
+  background-color: #e4e4e4;
 }
 
 .card {
   border: 1px solid black;
+  padding: 5px;
+}
+
+.card * {
+  margin: 0
 }
 
 input {
@@ -21,8 +27,19 @@ input {
   max-width: 800px;
 }
 
-a {
+.button-link {
   font-size: 16px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px auto;
+  width: 300px;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: white;
 }
 
 @media (max-device-width:500px) {
@@ -42,11 +59,15 @@ a {
 .search-results {
   font-family: 'Times New Roman', Times, serif;
   font-size: 20px;
-  border: 1px solid black;
   width: var(--body-width);
 }
 
 .search-results {
   position: absolute;
   background-color: white;
+}
+
+.search-bar {
+  border: 1px solid black;
+  padding: 5px;
 }
