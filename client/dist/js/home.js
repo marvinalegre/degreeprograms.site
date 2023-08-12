@@ -2,6 +2,8 @@ import Chart from 'chart.js/auto'
 
 let interval
 let searchResults = document.querySelector('.search-results')
+let searchBounds = searchResults.getBoundingClientRect()
+searchResults.style.top = searchBounds.top
 
 document.querySelector('.search-bar').addEventListener('input', (e) => {
   searchResults.innerHTML = ''

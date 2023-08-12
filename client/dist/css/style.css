@@ -1,9 +1,14 @@
-* {
-  margin: 20px 3px;
+:root {
+  --body-width: 850px;
 }
 
-h1 {
-  color: green;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: var(--body-width);
+  margin: 0 auto;
 }
 
 .card {
@@ -18,4 +23,30 @@ input {
 
 a {
   font-size: 16px;
+}
+
+@media (max-device-width:500px) {
+  #id {
+    width: 100%;
+  }
+}
+
+.search-results a {
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+
+}
+
+.search-bar,
+.search-results {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  border: 1px solid black;
+  width: var(--body-width);
+}
+
+.search-results {
+  position: absolute;
+  background-color: white;
 }
